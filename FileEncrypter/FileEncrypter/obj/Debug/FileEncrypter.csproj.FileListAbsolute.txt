@@ -5,3 +5,11 @@
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.CoreCompileInputs.cache
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.exe
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.pdb
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe.config
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.pdb
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.AssemblyReference.cache
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.SuggestedBindingRedirects.cache
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.exe
+C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.pdb
