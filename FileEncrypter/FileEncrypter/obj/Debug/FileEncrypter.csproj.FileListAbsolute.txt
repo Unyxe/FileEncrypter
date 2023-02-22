@@ -13,3 +13,11 @@ C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug
 C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.exe
 C:\Users\User\Documents\FileEncrypter-main\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.pdb
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe.config
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.pdb
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.AssemblyReference.cache
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.SuggestedBindingRedirects.cache
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.CoreCompileInputs.cache
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.exe
+C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.pdb

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography;
 using System.Runtime.Remoting.Messaging;
+using System.Diagnostics;
+using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace FileEncrypter
 {
@@ -19,66 +22,112 @@ namespace FileEncrypter
         static List<string> decrypted_file_paths = new List<string>();
         static List<byte[]> decrypted_file_contents = new List<byte[]>();
         static List<string> paths = new List<string>();
-        static string enc_path = @"C:\Enc\";
-        static string dec_path = @"C:\Users\User\Documents\Temp\";
+        static int deepness = -1;
+        static string enc_path = @"";
+        static Random random = new Random();
+        static string temp_path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\temp\";
+        static string dec_path = temp_path + random.Next() + "\\";
         static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
-            Console.WriteLine("Select mode (0 - encrypt, 1 - decrypt): ");
-            int mode = Int32.Parse(Console.ReadLine());
-            if (mode == 0)
+            Console.WriteLine("\t\tFileEncryptor by Unyxe\n\n");
+
+            if (Directory.Exists(temp_path))
             {
-                Console.WriteLine("Enter folder path you need to encrypt: ");
-                string path = Console.ReadLine();
-                if (path[path.Length-1] != '\\')
-                {
-                    path += "\\";
-                }
-                Console.WriteLine("Enter your password: ");
-                password_bytes = CreateKey(Console.ReadLine());
-                ScanFolder(path);
-                Console.WriteLine("___________");
-                foreach (string p in paths)
-                {
-                    Console.WriteLine(p);
-                    encrypted_files.Add(new string[] { p, EncryptFile(p) });
-                }
-                enc_path = path;
-                WriteNewEncryptedFolder();
-                Console.ReadLine();
-            } else
-            {
-                Console.WriteLine("Enter folder path you need to decrypt: ");
-                string path = Console.ReadLine();
-                if (path[path.Length - 1] != '\\')
-                {
-                    path += "\\";
-                }
-                Console.WriteLine("Enter your password: ");
-                password_bytes = CreateKey(Console.ReadLine());
-                ScanFolder(path);
-                Console.WriteLine("___________");
-                foreach (string p in paths)
-                {
-                    Console.WriteLine(p);
-                    decrypted_file_paths.Add(p);
-                    decrypted_file_contents.Add(DecryptFile(p));
-                }
-                dec_path = path;
-                WriteNewDecryptedFolder();
-                Console.ReadLine();
+                Directory.Delete(temp_path, true);
             }
-        }
-        static void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        {
+            handler = new ConsoleEventDelegate(ConsoleEventCallback);
+            SetConsoleCtrlHandler(handler, true);
+
             while (true)
             {
+                if (Directory.Exists(dec_path))
+                {
+                    Directory.Delete(dec_path, true);
+                }
+                Directory.CreateDirectory(dec_path);
+                Console.WriteLine("Select mode (0 - encrypt, 1 - decrypt): ");
+                int mode = Int32.Parse(Console.ReadLine());
+                if (mode == 0)
+                {
+                    Console.WriteLine("Enter folder path you need to encrypt: ");
+                    string path = Console.ReadLine();
+                    if (path[path.Length - 1] != '\\')
+                    {
+                        path += "\\";
+                    }
+                    SetDeepness(path);
+                    Console.WriteLine("Enter your password: ");
+                    password_bytes = CreateKey(Console.ReadLine());
+                    ScanFolder(path);
+                    Console.WriteLine("___________");
+                    foreach (string p in paths)
+                    {
+                        Console.WriteLine(p);
+                        encrypted_files.Add(new string[] { p, EncryptFile(p) });
+                    }
+                    enc_path = path;
+                    WriteNewEncryptedFolder();
+                    Process.Start(enc_path);
 
+                }
+                else
+                {
+                    Console.WriteLine("Enter folder path you need to decrypt: ");
+                    string path = Console.ReadLine();
+                    if (path[path.Length - 1] != '\\')
+                    {
+                        path += "\\";
+                    }
+                    enc_path = path;
+                    SetDeepness(path);
+                    dec_path += GetDirectoryName(path) + '\\';
+                    Console.WriteLine("Enter your password: ");
+                    password_bytes = CreateKey(Console.ReadLine());
+                    ScanFolder(path);
+                    Console.WriteLine("___________");
+                    foreach (string p in paths)
+                    {
+                        Console.WriteLine(p);
+                        decrypted_file_paths.Add(p);
+                        decrypted_file_contents.Add(DecryptFile(p));
+                    }
+
+                    WriteNewDecryptedFolder();
+                    Process.Start(dec_path);
+                    while (true)
+                    {
+                        ClearVars();
+                        Console.WriteLine("Press Enter to save changes (type - to exit to the main menu)");
+                        string s = Console.ReadLine();
+                        if (s == "")
+                        {
+                            SetDeepness(dec_path);
+                            ScanFolder(dec_path);
+                            foreach (string p in paths)
+                            {
+                                Console.WriteLine(p);
+                                encrypted_files.Add(new string[] { p, EncryptFile(p) });
+                            }
+                            WriteNewEncryptedFolder();
+                            Console.WriteLine("Changes successfully applied!");
+                            continue;
+                        }
+                        else if (s == "-")
+                        {
+                            Console.WriteLine("Exitting...");
+                            Directory.Delete(temp_path, true);
+                            break;
+                        }
+                    }
+                }
+
+                
             }
         }
 
         static void ScanFolder(string path)
         {
+            
             DirectoryInfo d = new DirectoryInfo(path);
 
             FileInfo[] Files = d.GetFiles("*.*");
@@ -94,9 +143,20 @@ namespace FileEncrypter
                 ScanFolder(dir);
             }
         }
-
+        static void ClearVars()
+        {
+            paths.Clear();
+            encrypted_files.Clear();
+            decrypted_file_contents.Clear();
+            decrypted_file_paths.Clear();
+        }
+        static void SetDeepness(string path)
+        {
+            deepness = path.Split('\\').Length-1;
+        }
         static void WriteNewEncryptedFolder()
         {
+            Console.WriteLine(enc_path);
             if (!Directory.Exists(enc_path))
             {
                 Directory.Delete(enc_path, true);
@@ -116,7 +176,7 @@ namespace FileEncrypter
         }
         static void WriteNewDecryptedFolder()
         {
-            if (!Directory.Exists(dec_path))
+            if (Directory.Exists(dec_path))
             {
                 Directory.Delete(dec_path, true);
             }
@@ -138,17 +198,22 @@ namespace FileEncrypter
         {
             string[] splitted = path.Split('\\');
             string directory_path = "";
-            for(int i = 2; i < splitted.Length-1; i++)
+            for(int i = deepness; i < splitted.Length-1; i++)
             {
                 directory_path += splitted[i] + @"\";
             }
             return directory_path;
         }
+        static string GetDirectoryName(string path)
+        {
+            string[] splitted = path.Split('\\');
+            return splitted[splitted.Length - 2];
+        }
         static string GetFilePath(string path)
         {
             string[] splitted = path.Split('\\');
             string file_path = "";
-            for (int i = 2; i < splitted.Length; i++)
+            for (int i = deepness; i < splitted.Length; i++)
             {
                 if(i == splitted.Length - 1)
                 {
@@ -245,5 +310,17 @@ namespace FileEncrypter
             var keyGenerator = new Rfc2898DeriveBytes(password, Salt, Iterations);
             return keyGenerator.GetBytes(keyBytes);
         }
+
+
+        static bool ConsoleEventCallback(int eventType)
+        {
+            Directory.Delete(temp_path, true);
+
+            return false;
+        }
+        static ConsoleEventDelegate handler;
+        private delegate bool ConsoleEventDelegate(int eventType);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool SetConsoleCtrlHandler(ConsoleEventDelegate callback, bool add);
     }
 }
