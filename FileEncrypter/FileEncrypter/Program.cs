@@ -33,7 +33,7 @@ namespace FileEncrypter
 
             if (Directory.Exists(temp_path))
             {
-                Directory.Delete(temp_path, true);
+                DeleteFolder(temp_path);
             }
             handler = new ConsoleEventDelegate(ConsoleEventCallback);
             SetConsoleCtrlHandler(handler, true);
@@ -58,15 +58,20 @@ namespace FileEncrypter
                     SetDeepness(path);
                     Console.WriteLine("Enter your password: ");
                     password_bytes = CreateKey(Console.ReadLine());
+                    Console.WriteLine("Scanning your folder...");
                     ScanFolder(path);
-                    Console.WriteLine("___________");
+                    Console.WriteLine($"Done! {paths.Count} files were found.");
+                    Console.WriteLine("Encrypting your files...");
                     foreach (string p in paths)
                     {
-                        Console.WriteLine(p);
+                        //Console.WriteLine(p);
                         encrypted_files.Add(new string[] { p, EncryptFile(p) });
                     }
+                    Console.WriteLine($"Done! {encrypted_files.Count} files were encrypted.");
                     enc_path = path;
+                    Console.WriteLine("Overwriting your folder with encrypted one...");
                     WriteNewEncryptedFolder();
+                    Console.WriteLine($"Done! Your files are located on: {enc_path}");
                     Process.Start(enc_path);
 
                 }
@@ -83,16 +88,21 @@ namespace FileEncrypter
                     dec_path += GetDirectoryName(path) + '\\';
                     Console.WriteLine("Enter your password: ");
                     password_bytes = CreateKey(Console.ReadLine());
+                    Console.WriteLine("Scanning your folder...");
                     ScanFolder(path);
-                    Console.WriteLine("___________");
+                    Console.WriteLine($"Done! {paths.Count} files were found.");
+                    Console.WriteLine("Decrypting your files...");
                     foreach (string p in paths)
                     {
-                        Console.WriteLine(p);
+                        //Console.WriteLine(p);
                         decrypted_file_paths.Add(p);
                         decrypted_file_contents.Add(DecryptFile(p));
                     }
+                    Console.WriteLine($"Done! {decrypted_file_paths.Count} files were decrypted.");
 
+                    Console.WriteLine("Copying decrypted files to the temporary location...");
                     WriteNewDecryptedFolder();
+                    Console.WriteLine($"Done! Your files are located on: {dec_path}");
                     Process.Start(dec_path);
                     while (true)
                     {
@@ -101,6 +111,7 @@ namespace FileEncrypter
                         string s = Console.ReadLine();
                         if (s == "")
                         {
+                            Console.WriteLine("Applying changes...");
                             SetDeepness(dec_path);
                             ScanFolder(dec_path);
                             foreach (string p in paths)
@@ -109,13 +120,13 @@ namespace FileEncrypter
                                 encrypted_files.Add(new string[] { p, EncryptFile(p) });
                             }
                             WriteNewEncryptedFolder();
-                            Console.WriteLine("Changes successfully applied!");
+                            Console.WriteLine($"Changes successfully applied! {encrypted_files.Count} files were encrypted.");
                             continue;
                         }
                         else if (s == "-")
                         {
                             Console.WriteLine("Exitting...");
-                            Directory.Delete(temp_path, true);
+                            DeleteFolder(temp_path);
                             break;
                         }
                     }
@@ -125,6 +136,43 @@ namespace FileEncrypter
             }
         }
 
+
+        static void DeleteFolder(string path)
+        {
+            //Console.WriteLine(path);
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(path);
+            
+                try
+                {
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                }
+                catch { return; }
+                try
+                {
+                    foreach (DirectoryInfo dir in di.GetDirectories())
+                    {
+                        try
+                        {
+                            DeleteFolder(dir.FullName);
+                        }
+                        catch { continue; }
+                    }
+                }
+                catch { return; }
+                try
+                {
+                    di.Delete(true);
+                }
+                catch { return; }
+                DeleteFolder(path);
+            }
+            catch { return; }
+        }
         static void ScanFolder(string path)
         {
             
@@ -156,13 +204,11 @@ namespace FileEncrypter
         }
         static void WriteNewEncryptedFolder()
         {
-            Console.WriteLine(enc_path);
             if (!Directory.Exists(enc_path))
             {
                 Directory.Delete(enc_path, true);
             }
             Directory.CreateDirectory(enc_path);
-            Console.WriteLine(encrypted_files.Count);
             foreach(string[] file in encrypted_files)
             {
                 string dir_path = enc_path + GetDirectoryPath(file[0]);
@@ -181,7 +227,6 @@ namespace FileEncrypter
                 Directory.Delete(dec_path, true);
             }
             Directory.CreateDirectory(dec_path);
-            Console.WriteLine(decrypted_file_paths.Count);
             for(int i = 0; i < decrypted_file_paths.Count; i++)
             {
                 string dir_path = dec_path + GetDirectoryPath(decrypted_file_paths[i]);
@@ -314,7 +359,7 @@ namespace FileEncrypter
 
         static bool ConsoleEventCallback(int eventType)
         {
-            Directory.Delete(temp_path, true);
+            DeleteFolder(temp_path);
 
             return false;
         }

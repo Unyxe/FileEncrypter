@@ -1,7 +1,6 @@
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe.config
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.pdb
-\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csprojAssemblyReference.cache
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.CoreCompileInputs.cache
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.exe
 \\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.pdb
@@ -21,3 +20,13 @@ C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.
 C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.CoreCompileInputs.cache
 C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.exe
 C:\Users\lucky\source\repos\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.pdb
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.AssemblyReference.cache
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.SuggestedBindingRedirects.cache
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe.config
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.exe
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\bin\Debug\FileEncrypter.pdb
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.AssemblyReference.cache
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.SuggestedBindingRedirects.cache
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.csproj.CoreCompileInputs.cache
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.exe
+L:\Visual Studio 2019\FileEncrypter\FileEncrypter\obj\Debug\FileEncrypter.pdb
