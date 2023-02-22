@@ -40,6 +40,7 @@ namespace FileEncrypter
 
             while (true)
             {
+                dec_path = temp_path + random.Next() + "\\";
                 if (Directory.Exists(dec_path))
                 {
                     Directory.Delete(dec_path, true);
