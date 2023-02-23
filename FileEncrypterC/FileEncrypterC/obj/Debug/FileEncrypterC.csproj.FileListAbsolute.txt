@@ -1,0 +1,7 @@
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypterC\FileEncrypterC\bin\Debug\FileEncrypterC.exe.config
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypterC\FileEncrypterC\bin\Debug\FileEncrypterC.exe
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypterC\FileEncrypterC\bin\Debug\FileEncrypterC.pdb
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypterC\FileEncrypterC\obj\Debug\FileEncrypterC.csprojAssemblyReference.cache
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypterC\FileEncrypterC\obj\Debug\FileEncrypterC.csproj.CoreCompileInputs.cache
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypterC\FileEncrypterC\obj\Debug\FileEncrypterC.exe
+\\lutcfs01.lutc.internal\student$\TPerfilov\Documents\Visual Studio 2019\FileEncrypterC\FileEncrypterC\obj\Debug\FileEncrypterC.pdb
