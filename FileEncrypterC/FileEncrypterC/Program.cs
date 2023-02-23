@@ -29,9 +29,6 @@ namespace FileEncrypter
         static string dec_path = temp_path + random.Next() + "\\";
         static void Main(string[] args)
         {
-            //enc_path = @"L:\hidden\h\";
-            //password_bytes = CreateKey(Console.ReadLine());
-            //Console.WriteLine(EncryptPath(enc_path + "nh\\dssd\\gh\\gg.png"));
             Console.WriteLine("\t\tFileEncryptor by Unyxe\n\n");
 
             if (Directory.Exists(temp_path))
@@ -50,7 +47,7 @@ namespace FileEncrypter
                     Directory.Delete(dec_path, true);
                 }
                 Directory.CreateDirectory(dec_path);
-                Console.WriteLine("Select mode (0 - encrypt, 1 - decrypt): ");
+                Console.WriteLine("\nSelect mode (0 - encrypt, 1 - decrypt): ");
                 int mode = Int32.Parse(Console.ReadLine());
                 if (mode == 0)
                 {
@@ -66,19 +63,35 @@ namespace FileEncrypter
                     password_bytes = CreateKey(Console.ReadLine());
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("\nScanning your folder...");
-                    ScanFolder(path);
+                    try
+                    {
+                        ScanFolder(path);
+                    }
+                    catch 
+                    {
+                        Console.WriteLine("\nScanning failed! Re-check the path and the password.");
+                        continue;
+                    }
                     Console.WriteLine($"\nDone! {paths.Count} files were found.");
                     Console.WriteLine("\nEncrypting your files...");
-                    foreach (string p in paths)
+                    try
                     {
-                        //Console.WriteLine(p);
-                        encrypted_files.Add(new string[] { EncryptPath(p), EncryptFile(p) });
+                        foreach (string p in paths)
+                        {
+                            //Console.WriteLine(p);
+                            encrypted_files.Add(new string[] { EncryptPath(p), EncryptFile(p) });
+                        }
+                        
+                    } catch
+                    {
+                        Console.WriteLine("\nEncryption failed! Re-check the path and the password.");
+                        continue;
                     }
                     Console.WriteLine($"\nDone! {encrypted_files.Count} files were encrypted.");
                     enc_path = path;
                     Console.WriteLine("\nOverwriting your folder with encrypted one...");
                     WriteNewEncryptedFolder();
-                    Console.WriteLine($"\nDone! Your files are located on: {enc_path}");
+                    Console.WriteLine($"\nDone! Your encrypted files are located on: {enc_path}");
                     Process.Start(enc_path);
 
                 }
@@ -98,21 +111,37 @@ namespace FileEncrypter
                     password_bytes = CreateKey(Console.ReadLine());
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("\nScanning your folder...");
-                    ScanFolder(path);
+                    try
+                    {
+                        ScanFolder(path);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("\nScanning failed! Re-check the path and the password.");
+                        continue;
+                    }
                     Console.WriteLine($"\nDone! {paths.Count} files were found.");
                     Console.WriteLine("\nDecrypting your files...");
-                    foreach (string p in paths)
+                    try
                     {
-                        //Console.WriteLine(p);
-                        decrypted_file_paths.Add(DecryptPath(p));
-                        decrypted_file_contents.Add(DecryptFile(p));
+                        foreach (string p in paths)
+                        {
+                            //Console.WriteLine(p);
+                            decrypted_file_paths.Add(DecryptPath(p));
+                            decrypted_file_contents.Add(DecryptFile(p));
+                        } 
+                    }
+                    catch
+                    {
+                        Console.WriteLine("\nDecryption failed! Re-check the path and the password.");
+                        continue;
                     }
                     Console.WriteLine($"\nDone! {decrypted_file_paths.Count} files were decrypted.");
-
                     Console.WriteLine("\nCopying decrypted files to the temporary location...");
                     WriteNewDecryptedFolder();
-                    Console.WriteLine($"\nDone! Your files are located on: {dec_path}");
+                    Console.WriteLine($"\nDone! Your decrypted files are located on: {dec_path}");
                     Process.Start(dec_path);
+
                     while (true)
                     {
                         ClearVars();
